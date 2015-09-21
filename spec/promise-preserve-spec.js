@@ -1,3 +1,5 @@
+'use strict';
+
 var preserve = require('../preserve.js');
 var promise;
 
@@ -6,21 +8,24 @@ describe('prpomise-preserve', function() {
     promise = new Promise(function(resolve, reject) {
       resolve('Hello world!');
     });
-  })
+  });
+  
   describe('wrap a function', function() {
-    promise
-      .then(preserve(function(value) {
-        expect(value).toEqual('Hello world!');
-        return 'foobar';
-      }))
-      .then(function(value) {
-        expect(value).toEqual('Hello world!');
-        return 'foobar';
-      })
-      .then(function(value) {
-        expect(value).toEqual('foobar');
-        done();
-      });
+    it('shuold preserve the value in a promise chain', function() {
+      promise
+        .then(preserve(function(value) {
+          expect(value).toEqual('Hello world!');
+          return 'foobar';
+        }))
+        .then(function(value) {
+          expect(value).toEqual('Hello world!');
+          return 'foobar';
+        })
+        .then(function(value) {
+          expect(value).toEqual('foobar');
+          done();
+        });
+    });
   });
 
   describe('wrap a method', function() {
@@ -33,7 +38,7 @@ describe('prpomise-preserve', function() {
     };
 
     beforeEach(function() {
-      spyOn(obj, 'fn');
+      spyOn(obj, 'fn').and.callThrough();
     });
 
     it('should preserve an object methods context', function(done) {
@@ -41,7 +46,7 @@ describe('prpomise-preserve', function() {
         .then(preserve(obj, 'fn'))
         .then(preserve(function() {
           expect(obj.fn).toHaveBeenCalledWith('Hello world!');
-        })
+        }))
         .then(obj.fn.bind(obj))
         .then(function(value) {
           expect(value).toEqual('hello');
