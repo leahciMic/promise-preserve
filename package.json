@@ -1,6 +1,6 @@
 {
   "name": "promise-preserve",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Preserve the result in a promise chain",
   "main": "preserve.js",
   "scripts": {
