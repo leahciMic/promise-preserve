@@ -12,7 +12,7 @@ describe('prpomise-preserve', function() {
   });
 
   describe('wrap a function', function() {
-    it('shuold preserve the value in a promise chain', function() {
+    it('shuold preserve the value in a promise chain', function(done) {
       promise
         .then(preserve(function(value) {
           expect(value).toEqual('Hello world!');
@@ -33,7 +33,6 @@ describe('prpomise-preserve', function() {
     var obj = {
       foobar: 'hello',
       fn: function() {
-        expect(this.foobar).toEqual('hello');
         return this.foobar;
       }
     };
@@ -47,12 +46,29 @@ describe('prpomise-preserve', function() {
         .then(preserve(obj, 'fn'))
         .then(preserve(function() {
           expect(obj.fn).toHaveBeenCalledWith('Hello world!');
+          expect(obj.fn.calls.mostRecent().object).toEqual(obj);
         }))
         .then(obj.fn.bind(obj))
         .then(function(value) {
           expect(value).toEqual('hello');
           done();
         });
+    });
+
+    it('should preserve when a promise is involved', function(done) {
+      obj.fn.and.callFake(function() {
+        var self = this;
+        return Promise.resolve('haha').then(function() {
+          self.foobar = 'foobar';
+        });
+      });
+      promise
+        .then(preserve(obj, 'fn'))
+        .then(preserve(function(value) {
+          expect(value).toEqual('Hello world!');
+          expect(obj.foobar).toEqual('foobar');
+          done();
+        }));
     });
   });
 });

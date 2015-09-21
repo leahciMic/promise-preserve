@@ -7,9 +7,7 @@ var preserve = function(fn, name) {
   }
 
   return function(value) {
-    return Promise.join(function() {
-      return fn(value);
-    }).return(value);
+    return Promise.join(fn(value)).return(value);
   };
 }
 
