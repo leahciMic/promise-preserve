@@ -1,4 +1,6 @@
-# promise-preserve [![Build Status](https://travis-ci.org/leahciMic/promise-preserve.svg?branch=master)](https://travis-ci.org/leahciMic/promise-preserve)
+# promise-preserve
+
+[![Build Status](https://travis-ci.org/leahciMic/promise-preserve.svg?branch=master)](https://travis-ci.org/leahciMic/promise-preserve) [![Code Climate](https://codeclimate.com/github/leahciMic/promise-preserve/badges/gpa.svg)](https://codeclimate.com/github/leahciMic/promise-preserve)
 
 Preserve the result in a promise chain.
 
