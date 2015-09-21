@@ -1,6 +1,7 @@
 'use strict';
 
 var preserve = require('../preserve.js');
+var Promise = require('bluebird'); // so we can test in 0.10
 var promise;
 
 describe('prpomise-preserve', function() {
