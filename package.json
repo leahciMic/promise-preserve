@@ -2,7 +2,7 @@
   "name": "promise-preserve",
   "version": "1.0.0",
   "description": "Preserve the result in a promise chain",
-  "main": "index.js",
+  "main": "preserve.js",
   "scripts": {
     "test": "jasmine"
   },
