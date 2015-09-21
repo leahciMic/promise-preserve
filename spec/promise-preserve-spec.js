@@ -10,7 +10,7 @@ describe('prpomise-preserve', function() {
       resolve('Hello world!');
     });
   });
-  
+
   describe('wrap a function', function() {
     it('shuold preserve the value in a promise chain', function() {
       promise
