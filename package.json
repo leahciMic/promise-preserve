@@ -25,7 +25,9 @@
   },
   "homepage": "https://github.com/leahciMic/promise-preserve#readme",
   "devDependencies": {
-    "bluebird": "^2.10.0",
     "jasmine": "^2.3.2"
+  },
+  "dependencies": {
+    "bluebird": "^2.10.0"
   }
 }

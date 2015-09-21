@@ -1,24 +1,16 @@
 'use strict';
+var Promise = require('bluebird');
 
 var preserve = function(fn, name) {
   if (typeof name !== 'undefined') {
-    return function() {
-      fn[name].apply(fn, arguments);
-      if (arguments.length === 1) {
-        return arguments[0];
-      }
-      return arguments;
-    };
+    fn = fn[name].bind(fn);
   }
 
   return function(value) {
-    if (arguments.length === 1) {
-      fn(value);
-      return value;
-    }
-    fn.apply(undefined, arguments);
-    return arguments;
+    return Promise.join(function() {
+      return fn(value);
+    }).return(value);
   };
-};
+}
 
 module.exports = preserve;
